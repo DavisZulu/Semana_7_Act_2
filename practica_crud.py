@@ -44,6 +44,7 @@ CAMPOS_EDITABLES = {"apodo", "nombre_completo", "categoria", "empresa", "numero"
 # REGISTRO (logging): consola + archivo                                [AGREGADO]
 # ======================================================================
 def configurar_log():
+    """Registra cada operacion en la consola y en crud_contactos.log (con fecha y hora)."""
     registro = logging.getLogger("crud_contactos")
     registro.setLevel(logging.INFO)
     consola = logging.StreamHandler(sys.stdout)
@@ -118,6 +119,7 @@ PATRON_EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
 def validar_texto(valor, campo, minimo, maximo, obligatorio=True):
+    """Quita espacios y exige una longitud entre minimo y maximo; None si es opcional y vacio."""
     valor = (valor or "").strip()
     if not valor and not obligatorio:
         return None
@@ -127,14 +129,17 @@ def validar_texto(valor, campo, minimo, maximo, obligatorio=True):
 
 
 def validar_apodo(apodo):
+    """El apodo es obligatorio y tiene entre 1 y 40 caracteres."""
     return validar_texto(apodo, "el apodo", 1, 40)
 
 
 def validar_nombre(nombre):
+    """El nombre completo es obligatorio y tiene entre 3 y 80 caracteres."""
     return validar_texto(nombre, "el nombre completo", 3, 80)
 
 
 def validar_categoria(categoria):
+    """La categoria debe ser una de las seis permitidas; se normaliza a mayusculas."""
     categoria = (categoria or "").strip().upper()
     if categoria not in CATEGORIAS:
         raise ValueError(f"categoria no valida '{categoria}': use {', '.join(CATEGORIAS)}")
@@ -142,6 +147,7 @@ def validar_categoria(categoria):
 
 
 def validar_numero(numero):
+    """El numero solo admite digitos, entre 3 (lineas cortas) y 15 (maximo internacional)."""
     numero = str(numero or "").strip()
     if not numero.isdigit() or not 3 <= len(numero) <= 15:
         raise ValueError(f"numero no valido '{numero}': solo digitos, entre 3 y 15")
@@ -149,6 +155,7 @@ def validar_numero(numero):
 
 
 def validar_email(email):
+    """El correo es opcional; si se indica, debe tener el formato usuario@dominio.ext."""
     if email in (None, ""):
         return None
     if not PATRON_EMAIL.match(email):
@@ -357,6 +364,7 @@ def transferir_a_contacto(conexion, id_usuario, apodo, monto, descripcion="Trans
 
 
 def saldo(conexion, id_usuario):
+    """Devuelve el saldo actual de la wallet del usuario."""
     return conexion.execute(
         "SELECT saldo FROM wallets WHERE id_propietario = ?;", (id_usuario,)
     ).fetchone()[0]
@@ -372,6 +380,7 @@ def nuevo(apodo, numero, **extra):
 
 
 def probar_seguridad(conexion):
+    """Prueba la inyeccion SQL y 13 operaciones invalidas; todas deben ser rechazadas."""
     log.info("Inyeccion SQL en la lectura: leer_contactos(conexion, '1 OR 1=1')")
     filas = leer_contactos(conexion, "1 OR 1=1")
     log.info("    -> %d filas: el texto se trato como un valor, no como codigo SQL", len(filas))
@@ -445,10 +454,12 @@ AGENDA_USUARIO_1 = [   # Ana Torres: agenda profesional de 10 contactos
 # PROGRAMA PRINCIPAL
 # ======================================================================
 def titulo(texto):
+    """Imprime el separador de cada etapa en la consola."""
     print(f"\n--- {texto} " + "-" * max(0, 80 - len(texto)))
 
 
 def pausa(mensaje):
+    """Con --pausas, detiene la ejecucion para tomar la captura en DB Browser."""
     if PAUSAS:
         input(f"\n>>> {mensaje}\n>>> Presione Enter para continuar...")
 
