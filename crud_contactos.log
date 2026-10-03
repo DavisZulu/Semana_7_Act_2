@@ -1,39 +1,61 @@
-2026-10-03 14:46:49 | INFO    | Tabla contactos creada (PK, 2 FK, 5 CHECK, 2 UNIQUE, 1 indice)
-2026-10-03 14:46:49 | INFO    | C - Create: 5 contactos insertados para el usuario 1
-2026-10-03 14:46:49 | INFO    | C - Create: 1 contacto insertado para el usuario 4
-2026-10-03 14:46:49 | INFO    | C - Create: 1 contacto insertado para el usuario 3
-2026-10-03 14:50:09 | INFO    | R - Read: 5 contactos del usuario 1
-2026-10-03 14:50:09 | INFO    |        1  Mamá         3001112233  cuenta Quantum: -
-2026-10-03 14:50:09 | INFO    |        2  Casa         6041234567  cuenta Quantum: -
-2026-10-03 14:50:09 | INFO    |        3  Trabajo      6044448899  cuenta Quantum: -
-2026-10-03 14:50:09 | INFO    |        4  Laura        3104567890  cuenta Quantum: Laura Gomez
-2026-10-03 14:50:09 | INFO    |        5  Emergencias  123         cuenta Quantum: -
-2026-10-03 14:50:09 | INFO    | U - Update: contacto 1 'Mamá' -> 'Mamita' (1 fila modificada)
-2026-10-03 14:50:09 | INFO    | U - Update: contacto 4 actualizado {'favorito': 1}
-2026-10-03 14:52:51 | INFO    | D - Delete: contacto 2 ('Casa', 6041234567) eliminado (1 fila)
-2026-10-03 14:53:45 | INFO    | Busqueda 'la' en la agenda del usuario 1: 1 resultado(s) ['Laura']
-2026-10-03 14:53:45 | INFO    | Transferencia de 50,000.00 a 'Laura' registrada en Quantum Core
-2026-10-03 14:53:45 | INFO    | Saldo de Ana Torres  :      220,000.50 ->      170,000.50
-2026-10-03 14:53:45 | INFO    | Saldo de Laura Gomez :    4,349,999.50 ->    4,399,999.50
-2026-10-03 14:53:45 | INFO    | Inyeccion SQL en la lectura: leer_contactos(conexion, '1 OR 1=1')
-2026-10-03 14:53:45 | INFO    | R - Read: 0 contactos del usuario 1 OR 1=1
-2026-10-03 14:53:45 | INFO    |     -> 0 filas: el texto se trato como un valor, no como codigo SQL
-2026-10-03 14:53:45 | INFO    | Busqueda '' OR '1'='1' en la agenda del usuario 1: 0 resultado(s) []
-2026-10-03 14:53:45 | INFO    |     -> la busqueda con comillas devolvio 0 filas
-2026-10-03 14:53:45 | WARNING | RECHAZADA Numero con letras -> ValueError: numero no valido '300-ABC': solo digitos, entre 3 y 15
-2026-10-03 14:53:45 | WARNING | RECHAZADA Apodo vacio -> ValueError: el apodo debe tener entre 1 y 40 caracteres
-2026-10-03 14:53:45 | WARNING | RECHAZADA Numero repetido en la agenda -> IntegrityError: UNIQUE constraint failed: contactos.id_usuario, contactos.numero
-2026-10-03 14:53:45 | WARNING | RECHAZADA Apodo repetido (sin importar mayusculas) -> IntegrityError: UNIQUE constraint failed: contactos.id_usuario, contactos.apodo
-2026-10-03 14:53:45 | WARNING | RECHAZADA Contacto para un usuario inexistente -> IntegrityError: FOREIGN KEY constraint failed
-2026-10-03 14:53:45 | WARNING | RECHAZADA Agendarse a si mismo -> IntegrityError: CHECK constraint failed: ck_contacto_no_propio
-2026-10-03 14:53:45 | WARNING | RECHAZADA Modificar un contacto de otro usuario -> LookupError: el contacto 6 no existe en la agenda del usuario 1
-2026-10-03 14:53:45 | WARNING | RECHAZADA Borrar un contacto que ya no existe -> LookupError: el contacto 2 no existe en la agenda del usuario 1
-2026-10-03 14:53:45 | WARNING | RECHAZADA Actualizar un campo fuera de la lista blanca -> ValueError: campos no permitidos: ['id_usuario']
-2026-10-03 14:53:45 | WARNING | RECHAZADA SQL directo que evita la validacion de Python -> IntegrityError: CHECK constraint failed: ck_contacto_numero
-2026-10-03 14:53:45 | WARNING | RECHAZADA Transferir a un contacto sin cuenta Quantum -> ValueError: el contacto 'Mamita' no tiene cuenta en Quantum Wallet
-2026-10-03 14:53:45 | INFO    | Resultado: 11 de 11 operaciones invalidas rechazadas
-2026-10-03 14:53:45 | INFO    | R - Read: 4 contactos del usuario 1
-2026-10-03 14:53:45 | INFO    |        1  Mamita       3001112233  cuenta Quantum: -
-2026-10-03 14:53:45 | INFO    |        3  Trabajo      6044448899  cuenta Quantum: -
-2026-10-03 14:53:45 | INFO    |     *  4  Laura        3104567890  cuenta Quantum: Laura Gomez
-2026-10-03 14:53:45 | INFO    |        5  Emergencias  123         cuenta Quantum: -
+2026-10-03 15:16:46 | INFO    | Tabla contactos creada: 14 columnas, 2 FK, 7 CHECK, 2 UNIQUE y 1 indice
+2026-10-03 15:16:46 | INFO    | C - Create: 10 contactos insertados para el usuario 1
+2026-10-03 15:16:46 | INFO    | C - Create: 1 contacto insertado para el usuario 4
+2026-10-03 15:16:46 | INFO    | C - Create: 1 contacto insertado para el usuario 3
+2026-10-03 15:20:49 | INFO    | R - Read: 10 contactos del usuario 1
+2026-10-03 15:20:49 | INFO    |       id  apodo                     nombre completo                categoria  numero      ciudad               cuenta Quantum
+2026-10-03 15:20:49 | INFO    |        1  Contador                  Andrés Felipe Restrepo Ospina  PROVEEDOR  3104458721  Medellín             -
+2026-10-03 15:20:49 | INFO    |        2  Antiguo arrendador        Jorge Iván Cardona Ruiz        SERVICIO   6045612233  Rionegro             -
+2026-10-03 15:20:49 | INFO    |        3  Jefe inmediato            Mariana Velásquez Henao        TRABAJO    3157723410  Medellín             -
+2026-10-03 15:20:49 | INFO    |        4  Laura - Desarrollo        Laura Gomez                    TRABAJO    3104567890  Medellín             Laura Gomez
+2026-10-03 15:20:49 | INFO    |        5  Pedro - Analista          Pedro Rios                     TRABAJO    3126665544  Medellín             Pedro Rios
+2026-10-03 15:20:49 | INFO    |        6  Cliente principal         Catalina Zuluaga Montoya       CLIENTE    3005582214  El Carmen de Viboral -
+2026-10-03 15:20:49 | INFO    |        7  Soporte de software       Nicolás Ramírez Echeverri      PROVEEDOR  3126654098  El Retiro            -
+2026-10-03 15:20:49 | INFO    |        8  Asesora jurídica          Daniela Ospina Giraldo         PROVEEDOR  3187742001  Medellín             -
+2026-10-03 15:20:49 | INFO    |        9  Hermano                   Santiago Torres Arango         FAMILIA    3014456677  La Ceja              -
+2026-10-03 15:20:49 | INFO    |       10  Línea de emergencias      Línea Única de Emergencias     EMERGENCIA 123         Nacional             -
+2026-10-03 15:20:49 | INFO    | Resumen de la agenda del usuario 1 por categoria: PROVEEDOR 3, TRABAJO 3, CLIENTE 1, EMERGENCIA 1, FAMILIA 1, SERVICIO 1
+2026-10-03 15:20:49 | INFO    | R - Read: 3 contactos del usuario 1 (categoria PROVEEDOR)
+2026-10-03 15:20:49 | INFO    |       id  apodo                     nombre completo                categoria  numero      ciudad               cuenta Quantum
+2026-10-03 15:20:49 | INFO    |        1  Contador                  Andrés Felipe Restrepo Ospina  PROVEEDOR  3104458721  Medellín             -
+2026-10-03 15:20:49 | INFO    |        7  Soporte de software       Nicolás Ramírez Echeverri      PROVEEDOR  3126654098  El Retiro            -
+2026-10-03 15:20:49 | INFO    |        8  Asesora jurídica          Daniela Ospina Giraldo         PROVEEDOR  3187742001  Medellín             -
+2026-10-03 15:20:49 | INFO    | U - Update: contacto 1 'Contador' -> 'Contador y revisor fiscal' (1 fila modificada)
+2026-10-03 15:20:49 | INFO    | U - Update: contacto 7 actualizado {'numero': '3126654099', 'email': 'mesadeayuda@tecnoretiro.co'}
+2026-10-03 15:20:49 | INFO    | U - Update: contacto 4 actualizado {'favorito': 1}
+2026-10-03 15:23:24 | INFO    | D - Delete: contacto 2 'Antiguo arrendador' (Jorge Iván Cardona Ruiz, 6045612233) eliminado (1 fila)
+2026-10-03 15:26:15 | INFO    | Busqueda 'Quantum' en la agenda del usuario 1: 3 resultado(s) ['Jefe inmediato', 'Laura - Desarrollo', 'Pedro - Analista']
+2026-10-03 15:26:15 | INFO    | Transferencia de 150,000.00 a 'Laura - Desarrollo' registrada en Quantum Core
+2026-10-03 15:26:15 | INFO    | Saldo de Ana Torres  :      220,000.50 ->       70,000.50
+2026-10-03 15:26:15 | INFO    | Saldo de Laura Gomez :    4,349,999.50 ->    4,499,999.50
+2026-10-03 15:26:15 | INFO    | Inyeccion SQL en la lectura: leer_contactos(conexion, '1 OR 1=1')
+2026-10-03 15:26:15 | INFO    | R - Read: 0 contactos del usuario 1 OR 1=1
+2026-10-03 15:26:15 | INFO    |     -> 0 filas: el texto se trato como un valor, no como codigo SQL
+2026-10-03 15:26:15 | INFO    | Busqueda '' OR '1'='1' en la agenda del usuario 1: 0 resultado(s) []
+2026-10-03 15:26:15 | INFO    |     -> la busqueda con comillas devolvio 0 filas
+2026-10-03 15:26:15 | WARNING | RECHAZADA Numero con letras -> ValueError: numero no valido '300-ABC': solo digitos, entre 3 y 15
+2026-10-03 15:26:15 | WARNING | RECHAZADA Apodo vacio -> ValueError: el apodo debe tener entre 1 y 40 caracteres
+2026-10-03 15:26:15 | WARNING | RECHAZADA Categoria no permitida -> ValueError: categoria no valida 'AMIGO': use FAMILIA, TRABAJO, PROVEEDOR, CLIENTE, SERVICIO, EMERGENCIA
+2026-10-03 15:26:15 | WARNING | RECHAZADA Nombre completo demasiado corto -> ValueError: el nombre completo debe tener entre 3 y 80 caracteres
+2026-10-03 15:26:15 | WARNING | RECHAZADA Numero repetido en la agenda -> IntegrityError: UNIQUE constraint failed: contactos.id_usuario, contactos.numero
+2026-10-03 15:26:15 | WARNING | RECHAZADA Apodo repetido (sin importar mayusculas) -> IntegrityError: UNIQUE constraint failed: contactos.id_usuario, contactos.apodo
+2026-10-03 15:26:15 | WARNING | RECHAZADA Contacto para un usuario inexistente -> IntegrityError: FOREIGN KEY constraint failed
+2026-10-03 15:26:15 | WARNING | RECHAZADA Agendarse a si mismo -> IntegrityError: CHECK constraint failed: ck_contacto_no_propio
+2026-10-03 15:26:15 | WARNING | RECHAZADA Modificar un contacto de otro usuario -> LookupError: el contacto 11 no existe en la agenda del usuario 1
+2026-10-03 15:26:15 | WARNING | RECHAZADA Borrar un contacto que ya no existe -> LookupError: el contacto 2 no existe en la agenda del usuario 1
+2026-10-03 15:26:15 | WARNING | RECHAZADA Actualizar un campo fuera de la lista blanca -> ValueError: campos no permitidos: ['id_usuario']
+2026-10-03 15:26:15 | WARNING | RECHAZADA SQL directo que evita la validacion de Python -> IntegrityError: CHECK constraint failed: ck_contacto_categoria
+2026-10-03 15:26:15 | WARNING | RECHAZADA Transferir a un contacto sin cuenta Quantum -> ValueError: el contacto 'Contador y revisor fiscal' no tiene cuenta en Quantum Wallet
+2026-10-03 15:26:15 | INFO    | Resultado: 13 de 13 operaciones invalidas rechazadas
+2026-10-03 15:26:15 | INFO    | R - Read: 9 contactos del usuario 1
+2026-10-03 15:26:15 | INFO    |       id  apodo                     nombre completo                categoria  numero      ciudad               cuenta Quantum
+2026-10-03 15:26:15 | INFO    |        1  Contador y revisor fiscal Andrés Felipe Restrepo Ospina  PROVEEDOR  3104458721  Medellín             -
+2026-10-03 15:26:15 | INFO    |        3  Jefe inmediato            Mariana Velásquez Henao        TRABAJO    3157723410  Medellín             -
+2026-10-03 15:26:15 | INFO    |    *   4  Laura - Desarrollo        Laura Gomez                    TRABAJO    3104567890  Medellín             Laura Gomez
+2026-10-03 15:26:15 | INFO    |        5  Pedro - Analista          Pedro Rios                     TRABAJO    3126665544  Medellín             Pedro Rios
+2026-10-03 15:26:15 | INFO    |        6  Cliente principal         Catalina Zuluaga Montoya       CLIENTE    3005582214  El Carmen de Viboral -
+2026-10-03 15:26:15 | INFO    |        7  Soporte de software       Nicolás Ramírez Echeverri      PROVEEDOR  3126654099  El Retiro            -
+2026-10-03 15:26:15 | INFO    |        8  Asesora jurídica          Daniela Ospina Giraldo         PROVEEDOR  3187742001  Medellín             -
+2026-10-03 15:26:15 | INFO    |        9  Hermano                   Santiago Torres Arango         FAMILIA    3014456677  La Ceja              -
+2026-10-03 15:26:15 | INFO    |       10  Línea de emergencias      Línea Única de Emergencias     EMERGENCIA 123         Nacional             -
+2026-10-03 15:26:15 | INFO    | Resumen de la agenda del usuario 1 por categoria: PROVEEDOR 3, TRABAJO 3, CLIENTE 1, EMERGENCIA 1, FAMILIA 1
